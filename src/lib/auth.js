@@ -12,7 +12,7 @@ const client = new MongoClient(process.env.MONGODB_URI, {
 export const auth = betterAuth({
   database: mongodbAdapter(client.db(process.env.DB_NAME), { client }),
   secret: process.env.BETTER_AUTH_SECRET,
-  baseURL: process.env.BETTER_AUTH_URL,
+  baseURL: process.env.BETTER_AUTH_URL || "https://hire-hive-project.vercel.app",
   
   emailAndPassword: {
     enabled: true,
