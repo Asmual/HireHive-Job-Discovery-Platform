@@ -31,7 +31,7 @@ export default function LoginPage() {
       }
       
       toast.success("Welcome back!", { id: toastId });
-      router.push("/");
+      router.push("/dashboard");
       router.refresh();
     } catch (err) {
       toast.error(err.message || "Invalid email or password.", { id: toastId });
@@ -44,9 +44,9 @@ export default function LoginPage() {
     try {
       await signIn.social({
         provider: "google",
-        callbackURL: "/",
+        callbackURL: "/dashboard",
       });
-    } catch (err) {
+    } catch {
       toast.error("Google authentication failed.");
     }
   };

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { signUp, signIn, signOut } from "@/lib/auth-client";
+import { signUp, signIn } from "@/lib/auth-client";
 import { FiUser, FiMail, FiLock, FiEye, FiEyeOff } from "react-icons/fi";
 import { FcGoogle } from "react-icons/fc";
 import toast from "react-hot-toast";
@@ -30,23 +30,15 @@ export default function SignupPage() {
         email: formData.email,
         password: formData.password,
         name: formData.name,
-        disableAutoSignIn: true,
-        data: {
-          role: formData.role
-        }
+        role: formData.role
       });
 
       if (response?.error) {
         throw new Error(response.error.message || "Failed to create account.");
       }
 
-      await signOut({
-        redirect: false
-      });
-
-      toast.success("Account created successfully! Please sign in.", { id: toastId });
-
-      router.push("/login");
+      toast.success("Account created successfully! Welcome to HireHive.", { id: toastId });
+      router.push("/dashboard");
       router.refresh();
     } catch (err) {
       toast.error(err.message || "Something went wrong. Please try again.", { id: toastId });
@@ -59,9 +51,9 @@ export default function SignupPage() {
     try {
       await signIn.social({
         provider: "google",
-        callbackURL: "/",
+        callbackURL: "/dashboard",
       });
-    } catch (err) {
+    } catch {
       toast.error("Google authentication failed.");
     }
   };
@@ -133,11 +125,9 @@ export default function SignupPage() {
             </div>
           </div>
 
-          {/* 🛠️ Custom Tailwind Radio Buttons */}
           <div>
             <label className="block text-xs font-medium text-zinc-400 uppercase tracking-wider mb-3">Join As A</label>
             <div className="grid grid-cols-2 gap-4">
-              {/* Job Seeker Option */}
               <label 
                 className={`flex items-center justify-between p-3.5 rounded-xl border cursor-pointer transition-all duration-200 ${
                   formData.role === "seeker" 
@@ -165,7 +155,6 @@ export default function SignupPage() {
                 </div>
               </label>
 
-              {/* Recruiter Option */}
               <label 
                 className={`flex items-center justify-between p-3.5 rounded-xl border cursor-pointer transition-all duration-200 ${
                   formData.role === "recruiter" 

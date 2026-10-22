@@ -1,60 +1,11 @@
 import Link from "next/link";
-import { HiOutlineLocationMarker } from "react-icons/hi";
-import { HiOutlineBriefcase } from "react-icons/hi"; // Fixed the import path here
+import { HiOutlineLocationMarker, HiOutlineBriefcase } from "react-icons/hi";
 import { FiDollarSign } from "react-icons/fi";
 import { HiOutlineArrowUpRight } from "react-icons/hi2";
+import { jobsData } from "@/data/jobs";
 
 export default function JobSection() {
-  const jobsData = [
-    {
-      id: 1,
-      title: "Frontend Developer",
-      description: "Showcase your commitment to diversity and inclusion by highlighting initiatives",
-      location: "New York, USA",
-      type: "Hybrid",
-      salary: "€25–€40/hour"
-    },
-    {
-      id: 2,
-      title: "Frontend Developer",
-      description: "Showcase your commitment to diversity and inclusion by highlighting initiatives",
-      location: "New York, USA",
-      type: "Hybrid",
-      salary: "€25–€40/hour"
-    },
-    {
-      id: 3,
-      title: "Frontend Developer",
-      description: "Showcase your commitment to diversity and inclusion by highlighting initiatives",
-      location: "New York, USA",
-      type: "Hybrid",
-      salary: "€25–€40/hour"
-    },
-    {
-      id: 4,
-      title: "Frontend Developer",
-      description: "Showcase your commitment to diversity and inclusion by highlighting initiatives",
-      location: "New York, USA",
-      type: "Hybrid",
-      salary: "€25–€40/hour"
-    },
-    {
-      id: 5,
-      title: "Frontend Developer",
-      description: "Showcase your commitment to diversity and inclusion by highlighting initiatives",
-      location: "New York, USA",
-      type: "Hybrid",
-      salary: "€25–€40/hour"
-    },
-    {
-      id: 6,
-      title: "Frontend Developer",
-      description: "Showcase your commitment to diversity and inclusion by highlighting initiatives",
-      location: "New York, USA",
-      type: "Hybrid",
-      salary: "€25–€40/hour"
-    }
-  ];
+  const featuredJobs = jobsData.slice(0, 6);
 
   return (
     <section className="bg-[#09090b] text-zinc-100 py-20 px-6">
@@ -71,52 +22,83 @@ export default function JobSection() {
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full mb-12">
-          {jobsData.map((job) => (
+          {featuredJobs.map((job) => (
             <div
               key={job.id}
-              className="bg-[#121214] border border-zinc-800/60 rounded-2xl p-8 flex flex-col justify-between hover:border-zinc-700 transition-all duration-300 group"
+              className="bg-[#121214] border border-zinc-800/80 rounded-2xl p-7 flex flex-col justify-between hover:border-zinc-700 transition-all duration-300 group shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.6)]"
             >
               <div>
-                <h3 className="text-xl font-semibold text-zinc-100 mb-3 tracking-wide">
-                  {job.title}
-                </h3>
-                <p className="text-sm text-zinc-400 leading-relaxed mb-6">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-2.5">
+                    <div
+                      className={`w-9 h-9 rounded-xl bg-gradient-to-br ${job.companyColor} border border-zinc-700/50 flex items-center justify-center text-white font-bold text-sm shadow`}
+                    >
+                      {job.companyLogo}
+                    </div>
+                    <div>
+                      <span className="text-xs font-semibold text-zinc-400 uppercase tracking-wider block">
+                        {job.company}
+                      </span>
+                      <span className="text-[10px] text-zinc-500">{job.postedAt}</span>
+                    </div>
+                  </div>
+
+                  <span className="text-[11px] font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded-full">
+                    {job.category}
+                  </span>
+                </div>
+
+                <Link href={`/jobs/${job.id}`}>
+                  <h3 className="text-lg font-bold text-zinc-100 mb-2 tracking-wide group-hover:text-emerald-400 transition-colors line-clamp-1">
+                    {job.title}
+                  </h3>
+                </Link>
+
+                <p className="text-xs text-zinc-400 leading-relaxed mb-6 line-clamp-2">
                   {job.description}
                 </p>
 
                 <div className="flex flex-wrap gap-2 mb-8">
                   <div className="flex items-center gap-1.5 bg-zinc-900 border border-zinc-800 rounded-full px-3 py-1 text-xs text-zinc-300">
                     <HiOutlineLocationMarker className="text-sm text-emerald-400" />
-                    <span>{job.location}</span>
+                    <span className="truncate max-w-[130px]">{job.location}</span>
                   </div>
                   <div className="flex items-center gap-1.5 bg-zinc-900 border border-zinc-800 rounded-full px-3 py-1 text-xs text-zinc-300">
-                    {/* The Tailwind style handles the color perfectly here */}
                     <HiOutlineBriefcase className="text-sm text-emerald-400" />
                     <span>{job.type}</span>
                   </div>
-                  <div className="flex items-center gap-1 bg-zinc-900 border border-zinc-800 rounded-full px-3 py-1 text-xs text-zinc-300 w-full sm:w-auto">
-                    <FiDollarSign className="text-xs text-emerald-400" />
+                  <div className="flex items-center gap-1 bg-zinc-900 border border-zinc-800 rounded-full px-3 py-1 text-xs text-emerald-400 font-medium">
+                    <FiDollarSign className="text-xs" />
                     <span>{job.salary}</span>
                   </div>
                 </div>
               </div>
 
-              <Link
-                href={`/jobs/${job.id}`}
-                className="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-300 hover:text-emerald-400 transition-colors duration-200 w-fit"
-              >
-                <span>Apply Now</span>
-                <HiOutlineArrowUpRight className="text-xs transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </Link>
+              <div className="flex items-center justify-between pt-4 border-t border-zinc-800/80">
+                <Link
+                  href={`/jobs/${job.id}`}
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-zinc-300 hover:text-emerald-400 transition-colors"
+                >
+                  <span>View Details</span>
+                  <HiOutlineArrowUpRight className="text-xs transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </Link>
+
+                <Link
+                  href={`/jobs/${job.id}#apply-section`}
+                  className="bg-white hover:bg-emerald-400 text-zinc-950 font-bold px-3.5 py-1.5 rounded-lg text-xs transition-colors"
+                >
+                  Apply
+                </Link>
+              </div>
             </div>
           ))}
         </div>
 
         <Link
           href="/jobs"
-          className="bg-white text-zinc-950 font-medium px-6 py-3 rounded-xl hover:bg-emerald-400 transition-all duration-300 shadow-md hover:shadow-emerald-500/10 text-sm"
+          className="bg-white text-zinc-950 font-semibold px-6 py-3 rounded-xl hover:bg-emerald-400 transition-all duration-300 shadow-md hover:shadow-emerald-500/20 text-sm"
         >
-          View all job open
+          View all open positions ({jobsData.length})
         </Link>
         
       </div>

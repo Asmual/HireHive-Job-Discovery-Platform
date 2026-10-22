@@ -3,7 +3,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image"; // Image component ইম্পোর্ট করা হয়েছে
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useSession, signOut } from "@/lib/auth-client";
 import toast from "react-hot-toast";
@@ -31,13 +31,13 @@ export default function Navbar() {
       toast.success("Signed out successfully", { id: toastId });
       router.push("/");
       router.refresh();
-    } catch (error) {
+    } catch {
       toast.error("Failed to sign out", { id: toastId });
     }
   };
 
   return (
-    <nav className="sticky top-0 z-50 w-full bg-[#09090b] px-6 py-4">
+    <nav className="sticky top-0 z-50 w-full bg-[#09090b] px-6 py-4 border-b border-zinc-900/60">
       <div className="mx-auto flex max-w-7xl items-center justify-between">
         
         {/* Left Side: Logo & Mobile Toggle */}
@@ -57,7 +57,6 @@ export default function Navbar() {
             </svg>
           </button>
 
-         
           <Link href="/" className="flex items-center gap-2.5 font-bold text-xl tracking-wide group">
             <div className="relative h-8 w-8 transition-transform duration-300 group-hover:scale-105">
               <Image 
@@ -101,7 +100,7 @@ export default function Navbar() {
               {session ? (
                 <>
                   {/* User Section: Avatar / Icon + Greeting */}
-                  <div className="flex items-center gap-2">
+                  <Link href="/dashboard" className="flex items-center gap-2 hover:opacity-90 transition-opacity">
                     <div className="relative cursor-pointer" title={session.user?.name}>
                       {session.user?.image ? (
                         <img 
@@ -114,10 +113,17 @@ export default function Navbar() {
                       )}
                     </div>
 
-                    <span className="text-sm font-medium text-zinc-300 max-w-30 truncate pl-1">
+                    <span className="text-sm font-medium text-zinc-300 max-w-[120px] truncate pl-1">
                       Hi, {session.user?.name ? session.user.name.split(" ")[0] : "User"}
                     </span>
-                  </div>
+                  </Link>
+
+                  <Link
+                    href="/dashboard"
+                    className="text-xs font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-full hover:bg-emerald-500/20 transition-all"
+                  >
+                    Dashboard
+                  </Link>
 
                   {/* Sign Out Button */}
                   <button
@@ -173,7 +179,11 @@ export default function Navbar() {
               <li className="mt-2 border-t border-zinc-800 pt-2 flex flex-col gap-2">
                 {session ? (
                   <>
-                    <div className="flex items-center gap-3 px-3 py-2 text-zinc-300 text-base font-medium">
+                    <Link
+                      href="/dashboard"
+                      onClick={() => setIsMenuOpen(false)}
+                      className="flex items-center gap-3 px-3 py-2 text-zinc-300 text-base font-medium hover:text-emerald-400"
+                    >
                       {session.user?.image ? (
                         <img 
                           src={session.user.image} 
@@ -183,8 +193,8 @@ export default function Navbar() {
                       ) : (
                         <FaCircleUser className="h-8 w-8 text-emerald-400/80 drop-shadow-[0_0_6px_rgba(52,211,153,0.4)]" />
                       )}
-                      <span className="truncate">Hi, {session.user?.name || "User"}</span>
-                    </div>
+                      <span className="truncate">Hi, {session.user?.name || "User"} (Dashboard)</span>
+                    </Link>
                     
                     <button
                       onClick={() => {
