@@ -2,39 +2,39 @@ import Link from "next/link";
 
 export default function CtaSection() {
   return (
-    <section className="bg-[#09090b] text-zinc-100 py-24 px-6 relative overflow-hidden">
-      {/* Background Image Container with Grid Pattern */}
+    <section className="bg-[#09090b] text-zinc-100 py-8 sm:py-10 px-4 sm:px-6 relative overflow-hidden">
+      {/* Background Image Container */}
       <div 
-        className="absolute inset-0 bg-[url('/cta-bg.png')] bg-top bg-no-repeat bg-contain opacity-90 pointer-events-none" 
+        className="absolute inset-0 bg-[url('/cta-bg.png')] bg-top bg-no-repeat bg-contain opacity-70 pointer-events-none" 
       />
 
       {/* Content Container */}
-      <div className="max-w-4xl mx-auto flex flex-col items-center text-center relative z-10 pt-12">
+      <div className="max-w-3xl mx-auto flex flex-col items-center text-center relative z-10 pt-4">
         
         {/* Heading */}
-        <h2 className="text-4xl md:text-6xl font-bold tracking-tight mb-4 max-w-2xl leading-tight bg-linear-to-b from-white to-zinc-300 bg-clip-text text-transparent">
-          Your next role is already looking for you
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight mb-2 max-w-xl leading-tight bg-gradient-to-b from-white to-zinc-300 bg-clip-text text-transparent">
+          Your Next Role is Already Looking for You
         </h2>
 
         {/* Description Subtext */}
-        <p className="text-zinc-400 text-base md:text-lg font-normal mb-10 max-w-xl leading-relaxed">
-          Build a profile in three minutes. The matches start arriving tomorrow morning.
+        <p className="text-zinc-400 text-xs sm:text-sm mb-6 max-w-md leading-relaxed">
+          Build a verified profile in three minutes. Handpicked recruiter matches start arriving in your inbox tomorrow.
         </p>
 
         {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
+        <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
           <Link
             href="/signup"
-            className="w-full sm:w-auto bg-white text-zinc-950 font-semibold px-6 py-3 rounded-xl hover:bg-emerald-400 transition-all duration-300 text-sm shadow-lg shadow-white/5 text-center"
+            className="w-full sm:w-auto bg-white text-zinc-950 font-semibold px-5 py-2.5 rounded-xl hover:bg-emerald-400 transition-all text-xs text-center shadow-sm"
           >
-            Create a free account
+            Create Free Account
           </Link>
           
           <Link
             href="/pricing"
-            className="w-full sm:w-auto bg-zinc-900/40 text-zinc-300 font-medium px-6 py-3 rounded-xl border border-zinc-800 hover:border-zinc-700 hover:text-white transition-all duration-300 text-sm text-center backdrop-blur-xs"
+            className="w-full sm:w-auto bg-zinc-900/60 text-zinc-300 font-medium px-5 py-2.5 rounded-xl border border-zinc-800 hover:border-zinc-700 hover:text-white transition-all text-xs text-center"
           >
-            View pricing
+            View Pricing Plans
           </Link>
         </div>
 
